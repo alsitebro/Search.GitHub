@@ -17,7 +17,7 @@
    }
 </div>
 <div class="row">
-    <div class="col-sm-12">
+    <div class="col-sm-6">
         @if (IsPost)
         {
             if (!string.IsNullOrWhiteSpace(Model.User.Username))
@@ -26,23 +26,24 @@
                     <img src="@Model.User.AvatarUrl" alt="Avatar" class="img-thumbnail" height="80" width="80"/>
                     <strong>@Model.User.Username</strong> <span class="badge">@Model.User.Location</span>
                 </p>
+            <hr/>
                 if (Model.User.Repos != null && Model.User.Repos.Any())
                 {
-                    <span>@Model.User.Username's top 5 repos with the highest number of stargazers</span>
-                    <table class="table table-striped">
+                    <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th>Name</th>
-                                <th>Description</th>
-                                <th>Stargazers</th>
+                                <th colspan="2">@Model.User.Username's top 5 repos with the highest number of stargazers</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach (var repo in Model.User.Repos.OrderByDescending(x => x.StargazersCount).Take(5))
                             {
                                 <tr>
-                                    <td><a href="@repo.HtmlUrl" target="_blank">@repo.Name</a></td>
-                                    <td>@repo.Description</td>
+                                    <td>
+                                        <a href="@repo.HtmlUrl" target="_blank">@repo.Name</a>
+                                        <br/>
+                                        <small>@repo.Description</small>
+                                    </td>
                                     <td>@repo.StargazersCount</td>
                                 </tr>
                             }
